@@ -38,7 +38,7 @@ Time series data and patterns
 :::
 
 ::: {.dateplace}
-2nd May 2025
+29th September 2025
 :::
 
 ##### Mitchell O'Hara-Wild, Nectric
