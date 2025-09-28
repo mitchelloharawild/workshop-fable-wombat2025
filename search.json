@@ -557,144 +557,158 @@
     "href": "slides/analysis/index.html#section-5",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Design of the forecast package\n\n\n\n\n\nForecasting individual time series\nRegular and infrequent observations (monthly, quarterly or annually)\nPoint forecasts and intervals\nConsistent with ts models\n\n\n\n\nDesign of the fable package\n\n\n\n\n\nForecasting many time series\nObservations at any time (sub-daily, irregular, monthly, etc.)\nForecast distributions\nConsistent with the tidyverse"
+    "text": "Tidy time series analysis\nThis workshop is about tidy time series in R.\nI’ll also introduce two new WIP packages!\n\n\n\n\n\n\nInstall them with:\n\nlibrary(remotes)\nremotes::install_github(\"mitchelloharawild/ggtime\")\nremotes::install_github(\"mitchelloharawild/mixtime\")"
   },
   {
     "objectID": "slides/analysis/index.html#section-6",
     "href": "slides/analysis/index.html#section-6",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Tidy time series packages\n# Data manipulation\nlibrary(dplyr)\n# Plotting functions\nlibrary(ggplot2)\n# Time and date manipulation\nlibrary(lubridate)\n# Time series class\nlibrary(tsibble)\n# Tidy time series data\nlibrary(tsibbledata)\n# Time series graphics and statistics\nlibrary(feasts)\n# Forecasting functions\nlibrary(fable)\n\n\n# All of the above\nlibrary(fpp3)"
+    "text": "Design of the forecast package\n\n\n\n\n\nForecasting individual time series\nRegular and infrequent observations (monthly, quarterly or annually)\nPoint forecasts and intervals\nConsistent with ts models\n\n\n\n\nDesign of the fable package\n\n\n\n\n\nForecasting many time series\nObservations at any time (sub-daily, irregular, monthly, etc.)\nForecast distributions\nConsistent with the tidyverse"
   },
   {
     "objectID": "slides/analysis/index.html#section-7",
     "href": "slides/analysis/index.html#section-7",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Time series data\n\nFour-yearly Olympic winning times\nAnnual Google profits\nQuarterly Australian beer production\nMonthly pharmaceutical subsidies\nWeekly retail sales\nDaily COVID-19 infections\nHourly electricity demand\nMinutely blood glucose measurements\nTime-stamped stock transaction data"
+    "text": "Tidy time series packages\n# Data manipulation\nlibrary(dplyr)\n# Plotting functions\nlibrary(ggplot2)\n# Time and date manipulation\nlibrary(lubridate)\n# Time series class\nlibrary(tsibble)\n# Tidy time series data\nlibrary(tsibbledata)\n# Time series graphics and statistics\nlibrary(feasts)\n# Forecasting functions\nlibrary(fable)\n\n\n# All of the above\nlibrary(fpp3)"
   },
   {
     "objectID": "slides/analysis/index.html#section-8",
     "href": "slides/analysis/index.html#section-8",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Time series data\nComes in all shapes and sizes!\nLike all data, we hope it’s tidy 🧹\n\n\n\n\n\n\n\nAll time series data contain…\n\n\n\nThe time of the observation (index)\nOne or more observations (measurements)\n\n\nSome datasets have identifying metadata,\n\nIdentifying variables for the series (key)"
+    "text": "Time series data\n\nFour-yearly Olympic winning times\nAnnual Google profits\nQuarterly Australian beer production\nMonthly pharmaceutical subsidies\nWeekly retail sales\nDaily COVID-19 infections\nHourly electricity demand\nMinutely blood glucose measurements\nTime-stamped stock transaction data"
   },
   {
     "objectID": "slides/analysis/index.html#section-9",
     "href": "slides/analysis/index.html#section-9",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "The tsibble data format\n\nA tsibble is a tibble for time series!\nThe quarterly visitors to Australia are found in the tourism dataset.\n\nlibrary(fpp3)\ntourism\n\n# A tsibble: 24,320 x 5 [1Q]\n# Key:       Region, State, Purpose [304]\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows"
+    "text": "Time series data\nComes in all shapes and sizes!\nLike all data, we hope it’s tidy 🧹\n\n\n\n\n\n\n\nAll time series data contain…\n\n\n\nThe time of the observation (index)\nOne or more observations (measurements)\n\n\nSome datasets have identifying metadata,\n\nIdentifying variables for the series (key)"
   },
   {
     "objectID": "slides/analysis/index.html#section-10",
     "href": "slides/analysis/index.html#section-10",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "# A tibble: 24,320 × 5\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows\n\n\n\n\n\n\n\n\nColumn types\n\n\nIn this dataset, the column types are:\n\nindex variable: Quarter\nkey variable(s): Region, State, and Purpose\nmeasured variable(s): Trips"
+    "text": "The tsibble data format\n\nA tsibble is a tibble for time series!\nThe quarterly visitors to Australia are found in the tourism dataset.\n\nlibrary(fpp3)\ntourism\n\n# A tsibble: 24,320 x 5 [1Q]\n# Key:       Region, State, Purpose [304]\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows"
   },
   {
     "objectID": "slides/analysis/index.html#section-11",
     "href": "slides/analysis/index.html#section-11",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "pedestrian\n\n\n\n# A tibble: 66,037 × 5\n   Sensor         Date_Time           Date        Time Count\n   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;\n 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630\n 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826\n 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567\n 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264\n 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139\n 6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77\n 7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44\n 8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56\n 9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113\n10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166\n# ℹ 66,027 more rows\n\n\n\n\n\n\n\n\nExercise 1\n\n\nIn this dataset, which columns are:\n\nindex variable(s)?\nkey variable(s)?\nmeasured variable(s)?"
+    "text": "# A tibble: 24,320 × 5\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows\n\n\n\n\n\n\n\n\nColumn types\n\n\nIn this dataset, the column types are:\n\nindex variable: Quarter\nkey variable(s): Region, State, and Purpose\nmeasured variable(s): Trips"
   },
   {
     "objectID": "slides/analysis/index.html#section-12",
     "href": "slides/analysis/index.html#section-12",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Our first tsibble\nA tsibble is a time series tibble.\nIt is created with as_tsibble().\n\ntourism |&gt; \n  as_tsibble(\n    key = c(Region, State, Purpose),\n    index = Quarter\n  )\n\n# A tsibble: 24,320 x 5 [1Q]\n# Key:       Region, State, Purpose [304]\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows"
+    "text": "pedestrian\n\n\n\n# A tibble: 66,037 × 5\n   Sensor         Date_Time           Date        Time Count\n   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;\n 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630\n 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826\n 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567\n 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264\n 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139\n 6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77\n 7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44\n 8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56\n 9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113\n10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166\n# ℹ 66,027 more rows\n\n\n\n\n\n\n\n\nExercise 1\n\n\nIn this dataset, which columns are:\n\nindex variable(s)?\nkey variable(s)?\nmeasured variable(s)?"
   },
   {
     "objectID": "slides/analysis/index.html#section-13",
     "href": "slides/analysis/index.html#section-13",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Our first tsibble\n\n\n\n\n\n\nExercise 2\n\n\nIdentify the index and key variables of the aus_accommodation dataset.\nThen use as_tsibble() to convert it into a tsibble.\n\nlibrary(fpp3)\nread.csv(\n  \"https://workshop.nectric.com.au/fable-wombat2025/data/aus_accommodation.csv\"\n)"
+    "text": "Our first tsibble\nA tsibble is a time series tibble.\nIt is created with as_tsibble().\n\ntourism |&gt; \n  as_tsibble(\n    key = c(Region, State, Purpose),\n    index = Quarter\n  )\n\n# A tsibble: 24,320 x 5 [1Q]\n# Key:       Region, State, Purpose [304]\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows"
   },
   {
     "objectID": "slides/analysis/index.html#section-14",
     "href": "slides/analysis/index.html#section-14",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Representing time (the index)\nTime is surprisingly tricky to represent!\n\nfrequency\ngranularity\ntime zones\ncalendars\nleap years (and seconds?!)\nholidays\ncivil/absolute time\ntime periods"
+    "text": "Our first tsibble\n\n\n\n\n\n\nExercise 2\n\n\nIdentify the index and key variables of the aus_accommodation dataset.\nThen use as_tsibble() to convert it into a tsibble.\n\nlibrary(fpp3)\nread.csv(\n  \"https://workshop.nectric.com.au/fable-wombat2025/data/aus_accommodation.csv\"\n)"
   },
   {
     "objectID": "slides/analysis/index.html#section-15",
     "href": "slides/analysis/index.html#section-15",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Representing time (the index)\nCommon time index variables can be created with these functions:\n\n\n\n\n\nGranularity\nFunction\n\n\n\n\nAnnual\nstart:end\n\n\nQuarterly\nyearquarter()\n\n\nMonthly\nyearmonth()\n\n\nWeekly\nyearweek()\n\n\nDaily\nas_date(), ymd()\n\n\nSub-daily\nas_datetime()"
+    "text": "Representing time (the index)\nTime is surprisingly tricky to represent!\n\nfrequency\ngranularity\ntime zones\ncalendars\nleap years (and seconds?!)\nholidays\ncivil/absolute time\ntime periods"
   },
   {
     "objectID": "slides/analysis/index.html#section-16",
     "href": "slides/analysis/index.html#section-16",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Creating a tsibble\n\nTidy the data into a long format\nAppropriately class the time variable\nConvert to tsibble with as_tsibble(), identifying the index and key variable(s).\n\n\n\n\n\n\n\nFollow along\n\n\nLet’s convert the tourism dataset into a tsibble.\n\nlibrary(fpp3)\nread.csv(\n  \"https://workshop.nectric.com.au/fable-wombat2025/data/tourism.csv\"\n)"
+    "text": "Representing time (the index)\nCommon time index variables can be created with these functions:\n\n\n\n\n\nGranularity\nFunction\n\n\n\n\nAnnual\nstart:end\n\n\nQuarterly\nyearquarter()\n\n\nMonthly\nyearmonth()\n\n\nWeekly\nyearweek()\n\n\nDaily\nas_date(), ymd()\n\n\nSub-daily\nas_datetime()"
   },
   {
     "objectID": "slides/analysis/index.html#section-17",
     "href": "slides/analysis/index.html#section-17",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Creating a tsibble\n\nTidy the data into a long format\nAppropriately class the time variable\nConvert to tsibble with as_tibble(), identifying the index and key variable(s).\n\n\n\n\n\n\n\nExercise 3\n\n\nRedo the previous exercise, but this time use the appropriate time class for the index variable.\nYou should see the frequency of the tsibble matches the quarterly frequency of the measurements."
+    "text": "Representing time\n\n\n\n⏳ More time classes\n\n\nThe mixtime package (WIP) provides more granularities.\n\nlinear and circular granularities,\ntimezones for all time classes,\ncontinuous and discrete time models,\nnon-Gregorian calendars.\n\nIt also enables mixed time classes in a single tsibble!"
   },
   {
     "objectID": "slides/analysis/index.html#section-18",
     "href": "slides/analysis/index.html#section-18",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Manipulating time series data\nTidy time series data uses tidyverse tools!\n\n\n\n\n\n\nExercise 4\n\n\nTry calculating the total tourists visiting Victoria from the tourism dataset.\nHint: use filter() to keep only visitors to “Victoria”, then summarise() to calculate the total trips."
+    "text": "Creating a tsibble\n\nTidy the data into a long format\nAppropriately class the time variable\nConvert to tsibble with as_tsibble(), identifying the index and key variable(s).\n\n\n\n\n\n\n\nFollow along\n\n\nLet’s convert the tourism dataset into a tsibble.\n\nlibrary(fpp3)\nread.csv(\n  \"https://workshop.nectric.com.au/fable-wombat2025/data/tourism.csv\"\n)"
   },
   {
     "objectID": "slides/analysis/index.html#section-19",
     "href": "slides/analysis/index.html#section-19",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Manipulating time series data\nHowever there are some differences when working with time…\nThe time index is always preserved (implicit group_by()).\n\n\n\n\n\n\nGrouping across time\n\n\nSometimes you want to summarise over time.\nSummarising over all of time is no longer a time series, so first convert to a tibble with as_tibble().\nTo re-index by a new variable, use index_by()."
+    "text": "Creating a tsibble\n\nTidy the data into a long format\nAppropriately class the time variable\nConvert to tsibble with as_tsibble(), identifying the index and key variable(s).\n\n\n\n\n\n\n\nExercise 3\n\n\nRedo the previous exercise, but this time use the appropriate time class for the index variable.\nYou should see the frequency of the tsibble matches the quarterly frequency of the measurements."
   },
   {
     "objectID": "slides/analysis/index.html#section-20",
     "href": "slides/analysis/index.html#section-20",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Visualising time series\nTime series visualisation helps us identify time series patterns.\nThese patterns include:\n\ntrends\nseasonalities\ncycles\ncovariates\nevents\n\nThey also help identify anomalies/outliers.\n\n:::"
+    "text": "Manipulating time series data\nTidy time series data uses tidyverse tools!\n\n\n\n\n\n\nExercise 4\n\n\nTry calculating the total tourists visiting Victoria from the tourism dataset.\nHint: use filter() to keep only visitors to “Victoria”, then summarise() to calculate the total trips."
   },
   {
     "objectID": "slides/analysis/index.html#section-21",
     "href": "slides/analysis/index.html#section-21",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Time plots\n\n\nThe most common time series graphic is the “time plot”, created with autoplot().\n\npbs_scripts &lt;- PBS |&gt;\n  summarise(Scripts = sum(Scripts))\npbs_scripts |&gt;\n  autoplot(Scripts)\n\n\n\n\n\n\n\n\n\n\n\n\n:::"
+    "text": "Manipulating time series data\nHowever there are some differences when working with time…\nThe time index is always preserved (implicit group_by()).\n\n\n\n\n\n\nGrouping across time\n\n\nSometimes you want to summarise over time.\nSummarising over all of time is no longer a time series, so first convert to a tibble with as_tibble().\nTo re-index by a new variable, use index_by()."
   },
   {
     "objectID": "slides/analysis/index.html#section-22",
     "href": "slides/analysis/index.html#section-22",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Seasonal plots\n\n\nThe gg_season() plots help identify peaks and troughs in seasonal patterns.\n\npbs_scripts |&gt;\n  gg_season(Scripts)\n\n\n\n\n\n\n\n\n\n\n\n\n:::"
+    "text": "Visualising time series\n\n\n\n📈 Temporal patterns\n\n\nTime series visualisation helps us identify time series patterns.\nThese patterns include:\n\ntrends\nseasonalities\ncycles\ncovariates\nevents\n\nThey also help identify anomalies/outliers."
   },
   {
     "objectID": "slides/analysis/index.html#section-23",
     "href": "slides/analysis/index.html#section-23",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "Seasonal sub-series plots\n\n\nThe gg_subseries() plots help identify changes in seasonal patterns.\n\npbs_scripts |&gt;\n  gg_subseries(Scripts)\n\n\n\n\n\n\n\n\n\n\n\n\n:::"
+    "text": "Time plots\n\n\nThe most common time series graphic is the “time plot”, created with autoplot().\n\npbs_scripts &lt;- PBS |&gt;\n  summarise(Scripts = sum(Scripts))\npbs_scripts |&gt;\n  autoplot(Scripts)"
   },
   {
     "objectID": "slides/analysis/index.html#section-24",
     "href": "slides/analysis/index.html#section-24",
     "title": "Tidy time series & forecasting in R",
     "section": "",
-    "text": "ACF plots\n\n\nThe ACF() |&gt; autoplot() plots show autocorrelations, helping to identify trends, seasons and cycles.\n\npbs_scripts |&gt;\n  ACF(Scripts) |&gt; \n  autoplot()\n\n\n\n\n\n\n\n\n\n\n\n\n:::"
+    "text": "Seasonal plots\n\n\nThe gg_season() plots help identify peaks and troughs in seasonal patterns.\n\npbs_scripts |&gt;\n  gg_season(Scripts)"
   },
   {
     "objectID": "slides/analysis/index.html#section-25",
     "href": "slides/analysis/index.html#section-25",
+    "title": "Tidy time series & forecasting in R",
+    "section": "",
+    "text": "Seasonal sub-series plots\n\n\nThe gg_subseries() plots help identify changes in seasonal patterns.\n\npbs_scripts |&gt;\n  gg_subseries(Scripts)"
+  },
+  {
+    "objectID": "slides/analysis/index.html#section-26",
+    "href": "slides/analysis/index.html#section-26",
+    "title": "Tidy time series & forecasting in R",
+    "section": "",
+    "text": "ACF plots\n\n\nThe ACF() |&gt; autoplot() plots show autocorrelations, helping to identify trends, seasons and cycles.\n\npbs_scripts |&gt;\n  ACF(Scripts) |&gt; \n  autoplot()"
+  },
+  {
+    "objectID": "slides/analysis/index.html#section-27",
+    "href": "slides/analysis/index.html#section-27",
     "title": "Tidy time series & forecasting in R",
     "section": "",
     "text": "Visualising time series\n\n\n\n\n\n\nExercise 5\n\n\nVisualise and describe the temporal patterns of visitors to Victoria in the tourism dataset.\nHere’s some code to get you started:\n\nvic_tourism &lt;- tourism |&gt; \n  filter(State == \"Victoria\") |&gt; \n  summarise(Trips = sum(Trips))\nvic_tourism |&gt; \n  autoplot(Trips)"
