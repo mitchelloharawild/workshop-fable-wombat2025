@@ -187,6 +187,39 @@ Install them all with `install.packages("fpp3")`
 ![](../backgrounds/david-pisnoy-46juD4zY1XA-unsplash.jpg){.image-right}
 
 
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Tidy time series analysis
+
+This workshop is about **tidy** time series in R.
+
+I'll also introduce two new WIP packages!
+
+:::{.hextile .clr}
+* ![](resources/ggtime.svg)
+* ![](resources/mixtime.svg)
+:::
+
+Install them with:
+
+```{r}
+#| eval: false
+#| echo: true
+library(remotes)
+remotes::install_github("mitchelloharawild/ggtime")
+remotes::install_github("mitchelloharawild/mixtime")
+```
+
+
+:::
+:::
+
+![](../backgrounds/david-pisnoy-46juD4zY1XA-unsplash.jpg){.image-right}
+
 ## {}
 
 ::: columns
@@ -557,6 +590,41 @@ tribble(
 
 ::: {.column width="60%"}
 
+![](resources/mixtime.svg){.sticker-float-right}
+
+### Representing time
+
+::: {.callout-note icon="false"}
+
+## ⏳ More time classes
+
+The `mixtime` package (WIP) provides more granularities.
+
+* linear and circular granularities,
+* timezones for all time classes,
+* continuous and discrete time models,
+* non-Gregorian calendars.
+
+It also enables mixed time classes in a single tsibble!
+
+:::
+
+:::
+:::
+
+![](../backgrounds/jon-tyson-FlHdnPO6dlw-unsplash.jpg){.image-left}
+
+
+
+## {}
+
+::: columns
+
+::: {.column width="40%"}
+:::
+
+::: {.column width="60%"}
+
 ### Creating a tsibble
 
 1. Tidy the data into a long format
@@ -599,7 +667,7 @@ read.csv(
 
 1. Tidy the data into a long format
 2. Appropriately class the time variable
-3. Convert to tsibble with `as_tibble()`, identifying the `index` and `key` variable(s).
+3. Convert to tsibble with `as_tsibble()`, identifying the `index` and `key` variable(s).
 
 ::: {.callout-caution}
 ## Exercise 3
@@ -677,7 +745,13 @@ To re-index by a new variable, use `index_by()`.
 
 ::: {.column width="60%"}
 
+![](resources/ggtime.svg){.sticker-float-right}
+
 ### Visualising time series
+
+::: {.callout-note icon=false}
+
+## 📈 Temporal patterns
 
 Time series visualisation helps us identify *time series patterns*.
 
@@ -723,8 +797,6 @@ pbs_scripts |>
 :::
 
 :::
-
-:::
 :::
 
 ![](../backgrounds/nathan-dumlao-5Hl5reICevY-unsplash.jpg){.image-left}
@@ -753,7 +825,6 @@ pbs_scripts |>
 :::
 
 :::
-:::
 
 ![](../backgrounds/nathan-dumlao-5Hl5reICevY-unsplash.jpg){.image-left}
 
@@ -777,8 +848,6 @@ The `gg_subseries()` plots help identify changes in seasonal patterns.
 pbs_scripts |>
   gg_subseries(Scripts)
 ```
-:::
-
 :::
 
 :::
@@ -807,8 +876,6 @@ pbs_scripts |>
   ACF(Scripts) |> 
   autoplot()
 ```
-:::
-
 :::
 
 :::
