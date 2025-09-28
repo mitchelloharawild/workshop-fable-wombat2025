@@ -10,11 +10,11 @@ Organisations of all types collect vast amounts of time series data, and there i
 
 This workshop will run in-person at [WOMBAT 2025](https://wombat2025.numbat.space/) in Melbourne Australia, and online via Zoom on September 29th 2025 from 9AM - 12:30AM AEST (UTC+10).
 
-## Registration
+<!-- ## Registration
 
 Registration for this tutorial costs $170 AUD ($85 AUD for students).
 
-You can register for this workshop using [Humanitix here: ](https://events.humanitix.com/wombat-2025-day-1-tutorials) <https://events.humanitix.com/wombat-2025-day-1-tutorials>. Select the suitable registration type for an "AM Tutorial" ticket, and then fill in your information and select the "Tidy time series analysis and forecasting" workshop.
+You can register for this workshop using [Humanitix here: ](https://events.humanitix.com/wombat-2025-day-1-tutorials) <https://events.humanitix.com/wombat-2025-day-1-tutorials>. Select the suitable registration type for an "AM Tutorial" ticket, and then fill in your information and select the "Tidy time series analysis and forecasting" workshop. -->
 
 ## Learning objectives
 
